@@ -1,0 +1,29 @@
+@import './tokens.scss';
+
+/* ZARA-like Minimalist CSS Extensions */
+a {
+  text-decoration: none;
+  color: inherit;
+  text-transform: uppercase;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-transform: uppercase;
+}
+
+/* Utilities */
+.container {
+  max-width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+/* Scrollbar hide for sleek look */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}

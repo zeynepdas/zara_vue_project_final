@@ -1,0 +1,189 @@
+:root {
+  /* Spacing */
+  --spacing-00: 0.125rem;
+  --spacing-01: 0.25rem;
+  --spacing-02: 0.5rem;
+  --spacing-03: 0.75rem;
+  --spacing-04: 1rem;
+  --spacing-05: 1.25rem;
+  --spacing-06: 1.5rem;
+  --spacing-07: 2rem;
+  --spacing-08: 2.5rem;
+  --spacing-09: 3rem;
+  --spacing-10: 3.5rem;
+  --spacing-11: 4rem;
+  --spacing-12: 4.5rem;
+  --spacing-13: 5rem;
+  --spacing-14: 6rem;
+  --spacing-15: 7rem;
+  --spacing-16: 7.5rem;
+
+  /* Colors */
+  --color-basic-black: #000;
+  --color-basic-white: #fff;
+  --color-content-high: var(--color-basic-black);
+  --color-content-mid: #757575;
+  --color-content-low: #ccc;
+  --color-content-inverse: var(--color-basic-white);
+  --color-background-base: var(--color-basic-white);
+  --color-background-contrast: #000;
+
+  /* Typography */
+  --font-family-main: 'Helvetica Now Text', 'Helvetica', 'Arial', 'sans-serif';
+  --font-weight-light: 300;
+  --font-weight-regular: normal;
+  --font-weight-medium: 500;
+  --font-weight-bold: bold;
+
+  --font-size-body-s: 0.625rem;
+  --font-size-body-m: 0.6875rem;
+  --font-size-body-l: 0.8125rem;
+
+  --letter-spacing-body-m: 0;
+  --letter-spacing-body-l: 0;
+
+  /* Layout */
+  --layout-header-height: 140px;
+  --form-field-gap: 8px;
+  --site-gutter: 2.5rem; /* 40px */
+}
+
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1.231;
+  color: var(--color-content-high);
+  background-color: var(--color-background-base);
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-body-l);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}

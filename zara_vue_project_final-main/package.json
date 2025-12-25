@@ -1,0 +1,44 @@
+{
+  "name": "zara_vue_project",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "generate": "nuxi generate",
+    "preview": "nuxi preview",
+    "postinstall": "nuxi prepare",
+    "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
+    "lint:eslint": "eslint . --fix --cache",
+    "lint": "run-s lint:*",
+    "format": "prettier --write src/"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.11.3",
+    "firebase": "^12.7.0",
+    "nuxt": "^4.2.2",
+    "pinia": "^3.0.4",
+    "sass": "^1.97.0",
+    "vue": "^3.5.22",
+    "vue-router": "^4.6.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.37.0",
+    "@prettier/plugin-oxc": "^0.0.4",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "eslint": "^9.37.0",
+    "eslint-plugin-oxlint": "~1.23.0",
+    "eslint-plugin-vue": "~10.5.0",
+    "globals": "^16.4.0",
+    "npm-run-all2": "^8.0.4",
+    "oxlint": "~1.23.0",
+    "prettier": "3.6.2",
+    "vite": "^7.1.11",
+    "vite-plugin-vue-devtools": "^8.0.3"
+  }
+}
