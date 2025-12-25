@@ -12,25 +12,30 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { doc, getDoc } from 'firebase/firestore'
 import { useNuxtApp } from '#app'
 import { useProductStore } from '~/stores/products'
 import O_ProductDetails from '~/src/components/organisms/O_ProductDetails.vue'
+import type { IProduct } from '~/types'
+
+interface ProductWithImages extends IProduct {
+  images?: string[]
+}
 
 const route = useRoute()
 const productStore = useProductStore()
-const productId = route.params.id
+const productId = route.params.id as string
 const loading = ref(true)
-const product = ref(null)
+const product = ref<ProductWithImages | null>(null)
 
 const fetchProduct = async () => {
   loading.value = true
 
   // 1. Pinia Store kontrolü (Eğer fotoğraflar (images) yoksa Firebase'e gitmeye zorlayalım)
-  const existingProduct = productStore.products.find((p) => String(p.id) === String(productId))
+  const existingProduct = productStore.products.find((p) => String(p.id) === String(productId)) as ProductWithImages | undefined
   if (existingProduct && existingProduct.images && existingProduct.images.length > 0) {
     console.log('Product found in store with images:', existingProduct)
     product.value = existingProduct
@@ -73,7 +78,7 @@ const fetchProduct = async () => {
           console.log(`Product found in collection: ${colName}`, data)
 
           // Görselleri dizi (array) formatına garanti altına alalım
-          let productImages = []
+          let productImages: string[] = []
           if (Array.isArray(data.images) && data.images.length > 0) {
             productImages = [...data.images]
           } else if (data.image || data.imageUrl) {
@@ -91,6 +96,7 @@ const fetchProduct = async () => {
             image: productImages[0],
             description:
               data.description || 'Zara Collection Özel Parça. Dik yakalı ve uzun kollu ceket.',
+            category: data.category || '',
           }
           break
         }
@@ -103,7 +109,7 @@ const fetchProduct = async () => {
     if (!product.value) {
       console.log('Product not found, checking fallback list...')
 
-      const fallbackProducts = [
+      const fallbackProducts: ProductWithImages[] = [
         {
           id: '1',
           title: '%100 DERİ BOMBER CEKET',
@@ -114,6 +120,8 @@ const fetchProduct = async () => {
           ],
           description:
             'Dik yakalı ve uzun kollu deri ceket. Önden metal fermuar kapamalı. Yan cepli.',
+          category: 'jackets',
+          image: '/images/urun_fotoson.jpg',
         },
         {
           id: '2',
@@ -122,6 +130,8 @@ const fetchProduct = async () => {
           images: ['/images/urun_fotoson.jpg', '/images/sepet_alti3.jpg'],
           description:
             'Cilde anında ışıltı veren likit aydınlatıcı. Hafif yapısıyla doğal bir parlaklık sağlar.',
+          category: 'beauty',
+          image: '/images/urun_fotoson.jpg',
         },
         {
           id: '3',
@@ -129,6 +139,8 @@ const fetchProduct = async () => {
           price: '990,00 TL',
           images: ['/images/urun_fotoson.jpg', '/images/sepet_alti4.jpg'],
           description: 'Zarif asimetrik yaka detaylı, vücuda oturan şık üst.',
+          category: 'tops',
+          image: '/images/urun_fotoson.jpg',
         },
         {
           id: '4',
@@ -136,6 +148,8 @@ const fetchProduct = async () => {
           price: '9.990,00 TL',
           images: ['/images/urun_fotoson.jpg', '/images/sepet_alti1.jpg'],
           description: 'Özel koleksiyon çift yüzlü ceket. Hem şık hem de sıcak tutan tasarım.',
+          category: 'jackets',
+          image: '/images/urun_fotoson.jpg',
         },
         {
           id: '5',
@@ -143,6 +157,8 @@ const fetchProduct = async () => {
           price: '1.490,00 TL',
           images: ['/images/urun_fotoson.jpg', '/images/sepet_alti2.jpg'],
           description: 'Metalik iplik detaylı, geniş paça dökümlü palazzo pantolon.',
+          category: 'pants',
+          image: '/images/urun_fotoson.jpg',
         },
         {
           id: '6',
@@ -150,6 +166,8 @@ const fetchProduct = async () => {
           price: '3.690,00 TL',
           images: ['/images/urun_fotoson.jpg', '/images/sepet_alti.jpg'],
           description: 'Yumuşak dokulu suni süet dış yüzey, içi kürklü detaylı ceket.',
+          category: 'jackets',
+          image: '/images/urun_fotoson.jpg',
         },
         {
           id: '7',
@@ -157,6 +175,8 @@ const fetchProduct = async () => {
           price: '2.990,00 TL',
           images: ['/images/urun_fotoson.jpg', '/images/urun_foto8.jpg'],
           description: 'Modern tasarımlı suni deri ceket.',
+          category: 'jackets',
+          image: '/images/urun_fotoson.jpg',
         },
         {
           id: '8',
@@ -164,6 +184,8 @@ const fetchProduct = async () => {
           price: '2.990,00 TL',
           images: ['/images/urun_fotoson.jpg', '/images/urun_foto1.jpg'],
           description: 'Retro tarzda süet görünümlü spor bomber ceket.',
+          category: 'jackets',
+          image: '/images/urun_fotoson.jpg',
         },
         {
           id: '11',
@@ -171,6 +193,8 @@ const fetchProduct = async () => {
           price: '2.990,00 TL',
           images: ['/images/urun_fotoson.jpg', '/images/urun_foto1.jpg'],
           description: 'Klasik bomber kesimli süet görünümlü ceket.',
+          category: 'jackets',
+          image: '/images/urun_fotoson.jpg',
         },
         {
           id: '12',
@@ -178,6 +202,8 @@ const fetchProduct = async () => {
           price: '3.690,00 TL',
           images: ['/images/urun_fotoson.jpg', '/images/sepet_alti3.jpg'],
           description: 'Rahat ve lüks görünümlü suni kürk ceket.',
+          category: 'jackets',
+          image: '/images/urun_fotoson.jpg',
         },
       ]
 
@@ -187,7 +213,7 @@ const fetchProduct = async () => {
       if (foundFallback) {
         product.value = {
           ...foundFallback,
-          image: foundFallback.images[0],
+          image: foundFallback.images![0],
         }
       }
     }

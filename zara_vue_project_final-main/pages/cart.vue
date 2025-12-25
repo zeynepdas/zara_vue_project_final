@@ -171,41 +171,41 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, computed } from 'vue'
 import A_Image from '@/src/components/atoms/A_Image.vue'
 import A_Link from '@/src/components/atoms/A_Link.vue'
 import O_RelatedProducts from '@/src/components/organisms/O_RelatedProducts.vue'
 import { useCartStore } from '@/stores/cart'
-import { mapState, mapActions } from 'pinia'
+import type { ICartItem } from '@/types'
 
-export default {
-  name: 'CartPage',
-  components: { A_Image, A_Link, O_RelatedProducts },
-  data() {
-    return {
-      currentTab: 'cart', // 'cart' or 'wishlist'
-      wishlistItems: [],
-    }
-  },
-  computed: {
-    ...mapState(useCartStore, ['totalItems', 'loading']),
-    ...mapState(useCartStore, {
-      cartItems: 'items',
-      totalPrice: 'totalPrice',
-    }),
-  },
-  methods: {
-    ...mapActions(useCartStore, ['addToCart', 'removeFromCart', 'checkout']),
-    decrementQty(item) {
-      this.removeFromCart(item.id, item.selectedSize)
-    },
-    removeItemCompletely(id, size) {
-      this.removeFromCart(id, size)
-    },
-    async handleCheckout() {
-      await this.checkout()
-    },
-  },
+const cartStore = useCartStore()
+
+// State
+const currentTab = ref<'cart' | 'wishlist'>('cart')
+const wishlistItems = ref<any[]>([])
+
+// Computed properties from store
+const totalItems = computed(() => cartStore.totalItems)
+const loading = computed(() => cartStore.loading)
+const cartItems = computed(() => cartStore.items)
+const totalPrice = computed(() => cartStore.totalPrice)
+
+// Methods
+const decrementQty = (item: ICartItem) => {
+  cartStore.removeFromCart(item.id, item.selectedSize)
+}
+
+const removeItemCompletely = (id: string, size?: string) => {
+  cartStore.removeFromCart(id, size)
+}
+
+const handleCheckout = async () => {
+  await cartStore.checkout()
+}
+
+const addToCart = (item: ICartItem) => {
+  cartStore.addToCart(item)
 }
 </script>
 

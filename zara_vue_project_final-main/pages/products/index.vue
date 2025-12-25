@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useProductStore } from '~/stores/products'
@@ -33,7 +33,7 @@ onMounted(async () => {
   await productStore.fetchProducts()
 })
 
-const goToProduct = (id) => {
+const goToProduct = (id: string) => {
   router.push(`/product/${id}`)
 }
 </script>
